@@ -1,4 +1,5 @@
 import WelcomeScreen from './WelcomeScreen/WelcomeScreen'
+import MandatoryCoursesPage from './CoursePages/MandatoryCoursesPage';
 import Header from './common/Header/Header';
 import { useStyles } from './App.classNames'
 function App() {
@@ -6,7 +7,8 @@ function App() {
   return (
     <div className={rootStyles.appRoot}>
       <Header />
-      <WelcomeScreen />
+      {/* <WelcomeScreen /> */}
+      <MandatoryCoursesPage />
     </div>
   )
 }
