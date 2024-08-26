@@ -8,13 +8,13 @@ export const useStyles = makeStyles({
         gap: tokens.spacingVerticalM,
         width:'80%',
         margin:'auto',
-        minWidth:'fit-content'
+        minWidth:'fit-content',
     },
-    instructionLine: {
+    filterButton: {
+        alignSelf: 'flex-end',
         display: 'flex',
-        justifyContent:'space-between',
         alignItems: 'center',
-        width:'100%'
+        gap: tokens.spacingHorizontalS
     },
     filterOptions: {
         display: 'grid',
@@ -22,6 +22,42 @@ export const useStyles = makeStyles({
         "Area Level"
         "Code Faculty"
         `,
+        '@media (min-width: 480px)': {
+            alignSelf: 'flex-end'
+        },
+        gap: tokens.spacingHorizontalS,
+    },
+    filterField: {
+        display: 'flex',
+        flexWrap:'wrap',
+        gap:tokens.spacingHorizontalS
+    },
+    levelCheckboxes: {
+        display:'flex',
+        gap: tokens.spacingHorizontalS,
+        alignItems: 'center'
+    },
+    levelCheckbox: {
+        '& input[type="checkbox"]': {
+            appearance:'none',
+            margin: 0,
+            ':checked + label': {
+                backgroundColor: tokens.colorBrandBackgroundSelected,
+                color: tokens.colorNeutralForeground1
+            },
+            ':not(:checked) + label': {
+                backgroundColor: tokens.colorNeutralBackground1
+            }
+        },
+        '& label': {
+            border: '1px solid black',
+            borderRadius: tokens.borderRadiusCircular,
+            userSelect: 'none',
+            height: '25px',
+            width: '25px',
+            display:'inline-block',
+            lineHeight:'25px'
+        },
     },
     checkField: {
         display: 'grid',

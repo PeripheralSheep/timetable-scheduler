@@ -1,41 +1,48 @@
 import { useStyles } from "./styles/coursePages.classNames";
-import { Tooltip, Popover, PopoverTrigger, PopoverSurface } from "@fluentui/react-components";
+import { Tooltip } from "@fluentui/react-components";
 import { Filter16Regular, Filter32Regular } from "@fluentui/react-icons";
 import TooltipContent from "./components/TooltipContent";
 export default function MandatoryCoursesPage() {
     const classes = useStyles();
     return (
         <div className={classes.outerCard}>
-            <div className={classes.instructionLine}>
-                <span>filter</span>
-                <h2>Choose Mandatory Courses Completed</h2>
-                <Popover trapFocus size="medium">
-                    <PopoverTrigger>
-                        {window.innerWidth < 480 ? <Filter32Regular/> : <span>Filter <Filter16Regular /></span>}
-                    </PopoverTrigger>
-                    <PopoverSurface>
-                        <div className={classes.filterOptions}>
-                            <div>
-                                <label htmlFor="">Area</label>
-                                <input type="text" />
-                            </div>
-                            <div>
-                                <label htmlFor="">Level</label>
-                                <input type="text" />
-                            </div>
-                            <div>
-                                <label htmlFor="">Code</label>
-                                <input type="number" />
-                            </div>
-                            <div>
-                                <label htmlFor="">Faculty</label>
-                                <input type="text" />
-                            </div>
-                        </div>
-                    </PopoverSurface>
-                </Popover>
+            <h2>Choose Mandatory Courses Completed</h2>
+            <div className={classes.filterButton}>{window.innerWidth < 480 ? <Filter32Regular/> : <>Filter <Filter16Regular /></>}</div>
+            <div className={classes.filterOptions}>
+                <div className={classes.filterField}>
+                    <label htmlFor="">Area</label>
+                    <select name="" id="">
+                        <option value="">MATH</option>
+                    </select>
+                </div>
+                <div className={classes.filterField}>
+                    <span>Level</span>
+                    <span className={classes.levelCheckboxes}>
+                        <span className={classes.levelCheckbox}>
+                            <input id="1" name="1" type="checkbox" />
+                            <label  htmlFor="1">1</label>
+                        </span>
+                        <span className={classes.levelCheckbox}>
+                            <input id="2" name="2" type="checkbox" />
+                            <label htmlFor="2">2</label>
+                        </span>
+                        <span className={classes.levelCheckbox}>
+                            <input id="3" name="3" type="checkbox" />
+                            <label htmlFor="3">3</label>
+                        </span>
+                    </span>
+                </div>
+                <div className={classes.filterField}>
+                    <label htmlFor="">Code</label>
+                    <input type="number"/>
+                </div>
+                <div className={classes.filterField}>
+                    <label htmlFor="">Faculty</label>
+                    <select name="" id="">
+                        <option value="">Science and Technology</option>
+                    </select>
+                </div>
             </div>
-            
             <div className={classes.checkField}>
                 <Tooltip content={<TooltipContent />} relationship="label" withArrow>
                     <div className={classes.checkboxOption}>

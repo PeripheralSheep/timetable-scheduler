@@ -12,11 +12,12 @@ export const useStyles = makeStyles({
         backgroundColor: tokens.colorNeutralBackground2,
         height:'100vh',
         width:'100%',
-        '@media (min-width: 480px)': {
-            height: '80vh',
-            width: '80%',
+        '@media (min-width: 640px)': {
+            height: '90vh',
+            width: '90%',
             border:'1px solid black',
+            paddingTop: '0'
         },
-        overflow:'scroll'
+        overflow:'auto'
     }
 })
