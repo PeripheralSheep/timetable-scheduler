@@ -4,14 +4,20 @@ export const useStyles = makeStyles({
         display: 'flex',
         flexDirection:'column',
         maxWidth:'1280px',
-        width: '80%',
-        minWidth:'400px',
-        height:'80vh',
+        minWidth:'320px',
         margin: '0 auto',
-        padding: '0 1rem',
         textAlign: 'center',
-        border:'1px solid black',
+        padding:'1rem',
         borderRadius:'10px',
         backgroundColor: tokens.colorNeutralBackground2,
+        height:'100vh',
+        width:'100%',
+        '@media (min-width: 640px)': {
+            height: '90vh',
+            width: '90%',
+            border:'1px solid black',
+            paddingTop: '0'
+        },
+        overflow:'auto'
     }
 })
