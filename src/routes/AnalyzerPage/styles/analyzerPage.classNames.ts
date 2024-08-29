@@ -21,12 +21,12 @@ export const useStyles = makeStyles({
     },
     passList: {
         '& > li':{
-            listStyleImage: 'url("../../../public/checkmark.svg")'
+            listStyleImage: 'url("/checkmark.svg")'
         }
     },
     failList: {
         '& > li':{
-            listStyleImage: 'url("../../../public/cross.svg")',
+            listStyleImage: 'url("/cross.svg")',
             '& ul li': {
                 listStyleImage: 'none',
                 listStyleType: "-"

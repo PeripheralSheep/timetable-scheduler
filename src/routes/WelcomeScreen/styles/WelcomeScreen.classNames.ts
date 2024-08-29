@@ -12,6 +12,7 @@ export const useStyles = makeStyles({
         justifyContent: 'center',
         gap:tokens.spacingVerticalM,
         width: '70%',
+        minWidth: 'fit-content',
         flex: '1 1 auto',
         padding: tokens.spacingVerticalXXXL
     },
@@ -23,7 +24,7 @@ export const useStyles = makeStyles({
     submitButton: {
         alignSelf: 'center',
         backgroundColor: tokens.colorBrandBackground,
-        color: tokens.colorNeutralForeground1,
+        color: tokens.colorNeutralForeground2,
         marginTop: 'auto'
     },
     formHeading: {

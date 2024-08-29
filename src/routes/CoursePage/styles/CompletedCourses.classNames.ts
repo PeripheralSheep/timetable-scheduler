@@ -9,6 +9,7 @@ export const useStyles = makeStyles({
         width:'80%',
         margin:'auto',
         minWidth:'fit-content',
+        height:'90%'
     },
     filterButton: {
         alignSelf: 'flex-end',
@@ -43,7 +44,7 @@ export const useStyles = makeStyles({
             margin: 0,
             ':checked + label': {
                 backgroundColor: tokens.colorBrandBackgroundSelected,
-                color: tokens.colorNeutralForeground1
+                color: tokens.colorNeutralForeground2
             },
             ':not(:checked) + label': {
                 backgroundColor: tokens.colorNeutralBackground1
@@ -59,9 +60,19 @@ export const useStyles = makeStyles({
             lineHeight:'25px'
         },
     },
+    form: {
+        width:'100%',
+        height:'80%',
+        display: 'flex',
+        flexDirection: 'column',
+        padding: 'tokens.spacingHorizontalS 0',
+        gap: tokens.spacingVerticalL
+    },
     checkField: {
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+        overflowY: 'auto',
+        maxHeight:'100%',
         width:'100%',
         gap: tokens.spacingHorizontalS,
         minWidth: 'min(320px,100%)'
@@ -80,5 +91,11 @@ export const useStyles = makeStyles({
         textOverflow: 'ellipsis',
         lineHeight:'50px',
         userSelect: 'none'
-    },  
+    },
+    submitButton: {
+        alignSelf:'center',
+        marginTop:'auto',
+        backgroundColor: tokens.colorBrandBackground,
+        color: tokens.colorNeutralForeground2
+    }
 })
