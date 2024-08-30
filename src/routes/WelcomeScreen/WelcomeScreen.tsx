@@ -1,6 +1,6 @@
 import { useStyles } from './styles/WelcomeScreen.classNames'
 
-import { useActionData } from 'react-router-dom';
+import { useActionData, redirect } from 'react-router-dom';
 import type { FormErrors } from './types/errors.types';
 import GetStartedForm from './components/GetStartedForm';
 
@@ -18,7 +18,7 @@ export async function action( {request} : {request: Request}){
         return errors;
     }
     else
-        return null;
+        return redirect(`/${formData.get("degree")}/${formData.get("academicYear")}/plan-hub`)
 }
 
 export default function WelcomeScreen() {

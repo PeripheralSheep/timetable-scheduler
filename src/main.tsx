@@ -5,14 +5,12 @@ import { createBrowserRouter, RouterProvider, Navigate, Outlet } from 'react-rou
 import { FluentProvider} from '@fluentui/react-components';
 import { lightTheme, darkTheme } from './theming/uwiThemes.ts';
 import ErrorPage from './routes/ErrorPage/ErrorPage.tsx'
-import WelcomeScreen from './routes/WelcomeScreen/WelcomeScreen.tsx'
+import WelcomeScreen, { action as getStartedAction } from './routes/WelcomeScreen/WelcomeScreen.tsx'
 
 import App from './App.tsx'
-import CoursePlan from './routes/CoursePlan/CoursePlan.tsx';
-import CompletedCourses from './routes/CoursePage/CompletedCourses.tsx';
+
 import AnalyzerPage from './routes/AnalyzerPage/AnalyzerPage.tsx';
-import Header from './common/Header/Header.tsx';
-import { action } from './routes/WelcomeScreen/WelcomeScreen.tsx';
+import PlanHub, { subRoutes as PlanHubSubRoutes} from './routes/PlanHub/PlanHub.tsx';
 
 const router = createBrowserRouter([
   {
@@ -27,28 +25,13 @@ const router = createBrowserRouter([
       {
         path: "get-started",
         element: <WelcomeScreen />,
-        action: action
+        action: getStartedAction
       },
       {
-        path: ":degree/plan-hub",
-        element: (<>
-          <Header />
-          <Outlet />
-        </>),
-        children: [
-          {
-            path: "completed-courses",
-            element:  <CompletedCourses />
-          },
-          {
-            path: "make-plan",
-            element: <CoursePlan />
-          },
-          {
-            index: true,
-            element: <h1>Placeholder</h1>
-          }
-        ]
+        path: ":degree/:academicYear/plan-hub",
+        element: <PlanHub />,
+        // loader: planHubLoader,
+        children: PlanHubSubRoutes
       }
     ]
   }

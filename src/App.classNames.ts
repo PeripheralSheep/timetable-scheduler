@@ -12,7 +12,7 @@ export const useStyles = makeStyles({
         backgroundColor: tokens.colorNeutralBackground2,
         height:'100vh',
         width:'100%',
-        '@media (min-width: 640px)': {
+        '@media (min-width: 1044px)': {
             height: '90vh',
             width: '90%',
             border:'1px solid black',

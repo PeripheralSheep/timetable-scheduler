@@ -24,9 +24,18 @@ export const useStyles = makeStyles({
         "Code Faculty"
         `,
         '@media (min-width: 480px)': {
-            alignSelf: 'flex-end'
+            alignSelf: 'flex-end',
+            '&.visible': {
+                height:'auto'
+            }
         },
         gap: tokens.spacingHorizontalS,
+        margin: '1px',
+        overflow: 'hidden',
+        height:'0',
+        '&.visible': {
+            height: '60px'
+        }
     },
     filterField: {
         display: 'flex',
@@ -62,7 +71,7 @@ export const useStyles = makeStyles({
     },
     form: {
         width:'100%',
-        height:'80%',
+        height:'70%',
         display: 'flex',
         flexDirection: 'column',
         padding: 'tokens.spacingHorizontalS 0',
