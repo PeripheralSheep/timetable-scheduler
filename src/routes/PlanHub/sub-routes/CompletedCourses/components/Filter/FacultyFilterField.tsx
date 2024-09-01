@@ -1,12 +1,19 @@
 import { useStyles } from "../../styles/CompletedCourses.classNames";
+import type { FilterState } from "../../types/FilterTypes";
 
-export default function FacultyFilterField() {
+export default function FacultyFilterField({filters, setFilters} : FilterState) {
     const classes = useStyles();
+    const handleFacultyChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setFilters((prev) => ({
+            ...prev,
+            faculty: e.target.value.trim()
+        })
+    )}
     return (
         <div className={classes.filterField}>
-            <label htmlFor="">Faculty</label>
-            <select name="" id="">
-                <option value="">Science and Technology</option>
+            <label htmlFor="faculty-select">Faculty</label>
+            <select onChange={handleFacultyChange} defaultValue={filters.faculty} name="faculty-select" id="faculty-select">
+                <option value="FST">Science and Technology</option>
             </select>
         </div>
     )

@@ -1,16 +1,17 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect} from "react";
 import { Filter16Regular } from "@fluentui/react-icons";
 import { useStyles } from "../../styles/CompletedCourses.classNames";
 import LevelFilterField from "./LevelFilterField";
 import DisciplineFilterField from "./DisciplineFilterField";
 import CourseCodeFilterField from "./CourseCodeFilterField";
 import FacultyFilterField from "./FacultyFilterField";
+import type { FilterState } from "../../types/FilterTypes";
+import { mergeClasses } from "@fluentui/react-components";
 
-export default function Filter() {
+export default function Filter(props : FilterState ) {
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-    const filterOptionsRef = useRef<HTMLDivElement>(null);
+    const [filterVisibility, setFilterVisibility] = useState<boolean>(false);
     const classes = useStyles();
-    
     const windowWidthBreakpoint = 480;
 
     useEffect( () => {
@@ -20,7 +21,7 @@ export default function Filter() {
     },[])
 
     const toggleButton = () => {
-        filterOptionsRef.current?.classList.toggle('visible')
+        setFilterVisibility( (visibility) => !visibility);
     };
 
     return(
@@ -28,11 +29,11 @@ export default function Filter() {
             <button onClick={toggleButton} className={classes.filterButton}>
                 {windowWidth >= windowWidthBreakpoint && "Filter"} <Filter16Regular />
             </button>
-            <div ref={filterOptionsRef} className={classes.filterOptions}>
-                <DisciplineFilterField />
-                <LevelFilterField />
-                <CourseCodeFilterField />
-                <FacultyFilterField />
+            <div className={mergeClasses(classes.filterOptions,filterVisibility && "visible")}>
+                <DisciplineFilterField {...props} />
+                <LevelFilterField {...props}/>
+                <CourseCodeFilterField {...props}/>
+                <FacultyFilterField {...props}/>
             </div>
         </>
     )
