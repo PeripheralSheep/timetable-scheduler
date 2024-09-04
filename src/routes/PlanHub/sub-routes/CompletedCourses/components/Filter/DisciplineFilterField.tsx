@@ -1,5 +1,5 @@
 import { useStyles } from "../../styles/CompletedCourses.classNames";
-import type { FilterState } from "../../types/FilterTypes";
+import type { FilterState } from "../../types/FilterTypes.types";
 
 export default function DisciplineFilterField({filters, setFilters} : FilterState) {
     const classes = useStyles();
@@ -12,7 +12,7 @@ export default function DisciplineFilterField({filters, setFilters} : FilterStat
     return (
         <div className={classes.filterField}>
             <label htmlFor="discipline-select">Discipline</label>
-            <select onChange={handleDisciplineChange} name="discipline-select" id="discipline-select">
+            <select onChange={handleDisciplineChange} value={filters.discipline} name="discipline-select" id="discipline-select">
                 <option value="ALL">ALL</option>
                 <option value="MATH">MATH</option>
             </select>

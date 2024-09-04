@@ -1,6 +1,6 @@
 import type { ChangeEvent } from "react";
 import { useStyles } from "../../styles/CompletedCourses.classNames";
-import type { FilterState } from "../../types/FilterTypes";
+import type { FilterState } from "../../types/FilterTypes.types";
 
 export default function CourseCodeFilterField({filters, setFilters} : FilterState) {
     const classes = useStyles();

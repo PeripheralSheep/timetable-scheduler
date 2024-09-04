@@ -1,7 +1,7 @@
 import { Tooltip } from "@fluentui/react-components";
 import TooltipContent from "./TooltipContent";
 import { useStyles } from "../../styles/CompletedCourses.classNames";
-import type { Course } from "./types/Course";
+import type { Course } from "../../types/Degree.types";
 
 export default function CheckboxOption( {course,selectedCourses, setSelectedCourses}: {course: Course, selectedCourses: string[], setSelectedCourses: React.Dispatch<React.SetStateAction<string[]>>}) {
     const classes = useStyles();

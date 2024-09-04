@@ -1,7 +1,7 @@
 import { Form } from "react-router-dom";
 import { useStyles } from "../../styles/CompletedCourses.classNames";
 import CheckboxField from "./CheckboxField";
-import type { Filter } from "../../types/FilterTypes";
+import type { Filter } from "../../types/FilterTypes.types";
 import { useState } from "react";
 export default function CourseSelectionForm({filters} : {filters: Filter}) {
     const classes = useStyles();

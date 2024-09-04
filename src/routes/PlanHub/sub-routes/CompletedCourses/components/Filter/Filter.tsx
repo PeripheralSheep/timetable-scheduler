@@ -5,7 +5,7 @@ import LevelFilterField from "./LevelFilterField";
 import DisciplineFilterField from "./DisciplineFilterField";
 import CourseCodeFilterField from "./CourseCodeFilterField";
 import FacultyFilterField from "./FacultyFilterField";
-import type { FilterState } from "../../types/FilterTypes";
+import type { FilterState } from "../../types/FilterTypes.types";
 import { mergeClasses } from "@fluentui/react-components";
 
 export default function Filter(props : FilterState ) {

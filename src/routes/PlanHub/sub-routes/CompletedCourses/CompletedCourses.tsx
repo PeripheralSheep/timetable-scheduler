@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useStyles } from "./styles/CompletedCourses.classNames";
 import Filter from "./components/Filter/Filter";
 import CourseSelectionForm from "./components/CourseSelectionForm/CourseSelectionForm";
-import type { Filter as FilterType } from "./types/FilterTypes";
+import type { Filter as FilterType } from "./types/FilterTypes.types";
 
 export default function CompletedCourses() {
     const classes = useStyles();

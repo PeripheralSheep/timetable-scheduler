@@ -17,7 +17,7 @@ export default function AcademicYearField({setAcademicYear, academicYearError} :
                 clearable
                 onOptionSelect={(event, data) => data.optionValue ? setAcademicYear(data.optionValue) : setAcademicYear('')}
             >
-                <Option value="20242025" key="20242025">2024-2025</Option>
+                <Option value="2024-2025" key="2024-2025">2024-2025</Option>
             </Dropdown>
         </Field>
     )

@@ -1,5 +1,5 @@
 import { useStyles } from "../../styles/CompletedCourses.classNames";
-import type { FilterState } from "../../types/FilterTypes";
+import type { FilterState } from "../../types/FilterTypes.types";
 
 export default function FacultyFilterField({filters, setFilters} : FilterState) {
     const classes = useStyles();
