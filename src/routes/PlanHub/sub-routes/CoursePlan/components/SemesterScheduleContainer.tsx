@@ -6,7 +6,7 @@ import type { Course, CourseSemester } from "../../CompletedCourses/types/Degree
 
 export default function SemesterScheduleContainer() {
     const classes = useStyles();
-    const [semesters, setSemesters] = useState<CourseSemester[]>([
+    const [semestersInfo, setSemestersInfo] = useState<CourseSemester[]>([
         {
             year: 2024,
             maxCredits: 18,
@@ -14,7 +14,7 @@ export default function SemesterScheduleContainer() {
             courseList: []
         },
         {
-            year: 2024,
+            year: 2025,
             maxCredits: 18,
             semesterNumber: 2,
             courseList: []
@@ -56,11 +56,11 @@ export default function SemesterScheduleContainer() {
             prerequisites: ['MATH2304','MATH2305','MATH2310', 'MATH2315', 'MATH2321']
         },
     ]
-    const selectableCourses = courseList.filter((course) => !semesters.some((semester) => semester.courseList.some((usedCourses) => usedCourses?.code === course.code)))
+    const selectableCourses = courseList.filter((course) => !semestersInfo.some((semester) => semester.courseList.some((usedCourses) => usedCourses?.code === course.code)))
     return (
         <div className={classes.semesterScheduleContainer}>
                 <NewSemesterButton />
-                {semesters.map( (semester) => <SemesterScheduleCard semester={semester} setSemesterCourseList={setSemesters} availableCourses={selectableCourses}/> ) }
+                {semestersInfo.map( (semester) => <SemesterScheduleCard key={`${semester.year}${semester.semesterNumber}`} semester={semester} setSemestersInfo={setSemestersInfo} availableCourses={selectableCourses}/> ) }
                 <button>+</button>
                 <NewSemesterButton />
             </div>
