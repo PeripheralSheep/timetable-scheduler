@@ -2,31 +2,30 @@ import { makeStyles, tokens } from "@fluentui/react-components";
 export const useStyles = makeStyles({
     outerCard: {
         display: 'flex',
-        flexDirection: 'row',
+        flexDirection: 'column',
         flex: '1 1 auto',
-        width:'80%',
+        width:'100%',
         margin:'auto',
         minWidth:'fit-content',
-        height: '90%',
-        flexWrap: 'wrap',
-        justifyContent:'center'
+        alignItems: 'center'
     },
     passFailCards: {
-        flex: '1 1 50%',
+        flex: '1 1 auto',
         minWidth: '360px',
         '& h2': {
             textAlign:'center'
         },
         textAlign: 'left',
+        width:'100%'
     },
     passList: {
         '& > li':{
-            listStyleImage: 'url("/checkmark.svg")'
+            listStyleImage: 'url("/src/assets/checkmark.svg")'
         }
     },
     failList: {
         '& > li':{
-            listStyleImage: 'url("/cross.svg")',
+            listStyleImage: 'url("/src/assets/cross.svg")',
             '& ul li': {
                 listStyleImage: 'none',
                 listStyleType: "-"

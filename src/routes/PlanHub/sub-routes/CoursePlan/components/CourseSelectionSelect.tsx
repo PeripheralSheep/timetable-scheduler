@@ -1,6 +1,11 @@
 import type { Course, CourseSemester } from "../../CompletedCourses/types/Degree.types";
 import { useStyles } from "../styles/coursePlan.classNames";
-export default function CourseSelectionSelect({curCourse, courseOptions, setSemesterCourseList, curPosition, associatedSemester}: {curCourse: Course | null, courseOptions : Course[], setSemesterCourseList: React.Dispatch<React.SetStateAction<CourseSemester[]>>, curPosition: number, associatedSemester: CourseSemester}) {
+export default function CourseSelectionSelect({curCourse, courseOptions, setSemesterCourseList, curPosition, associatedSemester}: {
+    curCourse: Course | null, 
+    courseOptions : Course[], 
+    setSemesterCourseList: React.Dispatch<React.SetStateAction<CourseSemester[]>>, 
+    curPosition: number, associatedSemester: CourseSemester
+}) {
     const classes = useStyles();
 
     const removeChoice = () => {

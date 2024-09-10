@@ -3,10 +3,17 @@ import NewCourseButton from "./NewCourseButton";
 import SemesterScheduleHeader from "./SemesterScheduleHeader";
 import CourseSelectionSelect from "./CourseSelectionSelect";
 import type { Course, CourseSemester } from "../../CompletedCourses/types/Degree.types";
-export default function SemesterScheduleCard({ semester, availableCourses, setSemestersInfo}:{semester:CourseSemester, availableCourses: Course[], setSemestersInfo: React.Dispatch<React.SetStateAction<CourseSemester[]>>}) {
+export default function SemesterScheduleCard({ semester, availableCourses, setSemestersInfo}:{
+    semester:CourseSemester, 
+    availableCourses: Course[], 
+    setSemestersInfo: React.Dispatch<React.SetStateAction<CourseSemester[]>>
+}) {
     const classes = useStyles();
     const selectedCourses = semester.courseList;
+    const minCreditsACourse = 3;
     const numCredits = selectedCourses?.reduce((sum, curCourse) => curCourse !== null ? sum + curCourse.credits : sum, 0);
+    const courseOptions: Course[] = availableCourses.filter((course) => !selectedCourses.some((selectedCourse) => selectedCourse?.code === course.code) && (semester.maxCredits - numCredits >= course.credits))
+
     function addCourseSlot() {
         setSemestersInfo( (semesters) => {
             return semesters.map((sem) => {
@@ -21,12 +28,12 @@ export default function SemesterScheduleCard({ semester, availableCourses, setSe
             })
         });
     }
-    const courseOptions: Course[] = availableCourses.filter((course) => !selectedCourses.some((selectedCourse) => selectedCourse?.code === course.code) && (semester.maxCredits - numCredits >= course.credits))
+    
     return (
         <div className={classes.semesterScheduleCard}>
             <SemesterScheduleHeader credits={numCredits} semesterInfo={semester} setSemesters={setSemestersInfo}/>
             {selectedCourses.map( (selectedCourse, i) => <CourseSelectionSelect key={i} curCourse={selectedCourse} courseOptions={courseOptions} setSemesterCourseList={setSemestersInfo} associatedSemester={semester} curPosition={i}/>)}
-            {semester.maxCredits - numCredits >= 3 && (courseOptions.length > 0) && <NewCourseButton onClick={addCourseSlot} disabled={selectedCourses.includes(null)}/>}
+            {semester.maxCredits - numCredits >= minCreditsACourse && (courseOptions.length > 0) && <NewCourseButton onClick={addCourseSlot} disabled={selectedCourses.includes(null)}/>}
         </div>
     )
 }

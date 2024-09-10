@@ -1,7 +1,10 @@
 import { Field, Dropdown, Option } from "@fluentui/react-components"
 import { useStyles } from '../styles/WelcomeScreen.classNames';
 
-export default function AcademicYearField({setAcademicYear, academicYearError} : {setAcademicYear: React.Dispatch<React.SetStateAction<string>>, academicYearError?: string}) {
+export default function AcademicYearField({setAcademicYear, academicYearError} : {
+    setAcademicYear: React.Dispatch<React.SetStateAction<string>>, 
+    academicYearError?: string
+}) {
     const classes = useStyles();
     return(
         <Field

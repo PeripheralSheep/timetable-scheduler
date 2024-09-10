@@ -8,8 +8,6 @@ import ErrorPage from './routes/ErrorPage/ErrorPage.tsx'
 import WelcomeScreen, { action as getStartedAction } from './routes/WelcomeScreen/WelcomeScreen.tsx'
 
 import App from './App.tsx'
-
-import AnalyzerPage from './routes/AnalyzerPage/AnalyzerPage.tsx';
 import PlanHub, { subRoutes as PlanHubSubRoutes} from './routes/PlanHub/PlanHub.tsx';
 
 const router = createBrowserRouter([

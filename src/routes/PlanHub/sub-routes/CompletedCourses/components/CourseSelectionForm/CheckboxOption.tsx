@@ -3,7 +3,11 @@ import TooltipContent from "./TooltipContent";
 import { useStyles } from "../../styles/CompletedCourses.classNames";
 import type { Course } from "../../types/Degree.types";
 
-export default function CheckboxOption( {course,selectedCourses, setSelectedCourses}: {course: Course, selectedCourses: string[], setSelectedCourses: React.Dispatch<React.SetStateAction<string[]>>}) {
+export default function CheckboxOption( {course,selectedCourses, setSelectedCourses}: {
+    course: Course, 
+    selectedCourses: string[], 
+    setSelectedCourses: React.Dispatch<React.SetStateAction<string[]>>
+}) {
     const classes = useStyles();
     const addCourse = (courseCode: string) => (
         setSelectedCourses( (prev) => [
@@ -23,8 +27,19 @@ export default function CheckboxOption( {course,selectedCourses, setSelectedCour
     return(
         <Tooltip key={course.code} content={<TooltipContent {...course} />} relationship="label" withArrow>
             <div className={classes.checkboxOption}>
-                <input type="checkbox" onChange={handleCourseChange} checked={selectedCourses.includes(course.code)} value={course.code} name={course.code} id={course.code} />
-                <label htmlFor={course.code} className={classes.checkboxLabel}>{course.code} - {course.name}</label>
+                <input 
+                    type="checkbox" 
+                    onChange={handleCourseChange} 
+                    checked={selectedCourses.includes(course.code)} 
+                    value={course.code} 
+                    name={course.code} 
+                    id={course.code} />
+                <label 
+                    htmlFor={course.code} 
+                    className={classes.checkboxLabel}
+                >
+                    {course.code} - {course.name}
+                </label>
             </div> 
         </Tooltip>
     )

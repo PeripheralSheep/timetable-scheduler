@@ -8,8 +8,16 @@ export default function CourseSelectionForm({filters} : {filters: Filter}) {
     const [selectedCourses, setSelectedCourses] = useState<Array<string>>([])
     return (
         <Form className={classes.form}>
-            <CheckboxField filters={filters} selectedCourses={selectedCourses} setSelectedCourses={setSelectedCourses} />
-            <button type="submit" className={classes.submitButton}>Make Course Plan</button>
+            <CheckboxField 
+                filters={filters} 
+                selectedCourses={selectedCourses} 
+                setSelectedCourses={setSelectedCourses} />
+            <button 
+                type="submit" 
+                className={classes.submitButton}
+            >
+                Make Course Plan
+            </button>
         </Form>
     )
 }

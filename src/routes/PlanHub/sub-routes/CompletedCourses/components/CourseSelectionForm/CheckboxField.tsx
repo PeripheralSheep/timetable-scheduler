@@ -2,7 +2,11 @@ import { useStyles } from "../../styles/CompletedCourses.classNames";
 import CheckboxOption from "./CheckboxOption";
 import type { Course } from "../../types/Degree.types";
 import type { Filter } from "../../types/FilterTypes.types";
-export default function CheckboxField({filters, selectedCourses,setSelectedCourses}:{filters: Filter, selectedCourses: string[], setSelectedCourses: React.Dispatch<React.SetStateAction<string[]>>}) {
+export default function CheckboxField({filters, selectedCourses,setSelectedCourses}:{
+    filters: Filter, 
+    selectedCourses: string[], 
+    setSelectedCourses: React.Dispatch<React.SetStateAction<string[]>>
+}) {
     const classes = useStyles();
     const courseList: Course[]  = [
         {
