@@ -1,13 +1,17 @@
 import Header from "../../common/Header/Header";
-import { Outlet, useParams } from "react-router-dom";
+import { Outlet, useLoaderData } from "react-router-dom";
 import CoursePlan from "./sub-routes/CoursePlan/CoursePlan.tsx";
 import CompletedCourses from "./sub-routes/CompletedCourses/CompletedCourses.tsx";
 
 interface DegreeParams {
-    degree: "string",
-    academicYear: "string"
+    degree: string,
+    academicYear: string
 }
 
+interface HeaderParams {
+  degreeName: string,
+  academicYear: string
+}
 export const subRoutes = [
     {
       path: "completed-courses",
@@ -22,16 +26,23 @@ export const subRoutes = [
       element: <h1>Placeholder</h1>
     }
 ]
-// export function loader( {params} : {params: DegreeParams} ) {
-//     return params;
-// }
+
+export async function loader( {params} : {params: DegreeParams} ) {
+  const degreesDataResponse = await fetch("/src/data/degreeInfo.json");
+  return degreesDataResponse.json().then((data)=> {
+    return {
+      degreeName: data[params.degree]["name"],
+      academicYear: params.academicYear
+    }
+  })
+}
 
 export default function PlanHub() {
-    const degreeData = useParams();
-    const heading = `${degreeData.degree} ${degreeData.academicYear}`
+    const degreeData = useLoaderData() as HeaderParams;
+    const heading = `${degreeData.degreeName} ${degreeData.academicYear}`
     return (
         <>
-            <Header heading={heading}/>
+            <Header>{heading}</ Header>
             <Outlet />
         </>
     )

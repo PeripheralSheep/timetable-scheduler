@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useStyles } from "./styles/coursePlan.classNames";
 import SemesterScheduleContainer from "./components/SemesterScheduleContainer";
 import AnalyzeDialog from "./components/AnalyzeDialog";
-import type { CourseSemester } from "../CompletedCourses/types/Degree.types";
+import type { CourseSemester } from "../../types/Degree.types";
 
 export default function CoursePlan() {
     const classes = useStyles();

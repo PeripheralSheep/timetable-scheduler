@@ -5,10 +5,10 @@ import { createBrowserRouter, RouterProvider, Navigate, Outlet } from 'react-rou
 import { FluentProvider} from '@fluentui/react-components';
 import { lightTheme, darkTheme } from './theming/uwiThemes.ts';
 import ErrorPage from './routes/ErrorPage/ErrorPage.tsx'
-import WelcomeScreen, { action as getStartedAction } from './routes/WelcomeScreen/WelcomeScreen.tsx'
+import WelcomeScreen, { action as getStartedAction, loader as getStartedLoader } from './routes/WelcomeScreen/WelcomeScreen.tsx'
 
 import App from './App.tsx'
-import PlanHub, { subRoutes as PlanHubSubRoutes} from './routes/PlanHub/PlanHub.tsx';
+import PlanHub, { subRoutes as PlanHubSubRoutes, loader as planHubLoader} from './routes/PlanHub/PlanHub.tsx';
 
 const router = createBrowserRouter([
   {
@@ -23,17 +23,19 @@ const router = createBrowserRouter([
       {
         path: "get-started",
         element: <WelcomeScreen />,
-        action: getStartedAction
+        action: getStartedAction,
+        loader: getStartedLoader
       },
       {
         path: ":degree/:academicYear/plan-hub",
         element: <PlanHub />,
-        // loader: planHubLoader,
+        loader: planHubLoader,
         children: PlanHubSubRoutes
       }
     ]
   }
 ])
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <FluentProvider theme={lightTheme}>

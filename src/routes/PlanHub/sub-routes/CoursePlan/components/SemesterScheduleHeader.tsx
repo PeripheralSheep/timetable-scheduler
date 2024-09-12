@@ -1,10 +1,13 @@
 import { Delete32Regular } from "@fluentui/react-icons";
 import { useStyles } from "../styles/coursePlan.classNames";
-import type { CourseSemester } from "../../CompletedCourses/types/Degree.types";
+import type { CourseSemester } from "../../../types/Degree.types";
+import type { DispatcherType } from "../../../types/StateProps.types";
+
+
 export default function SemesterScheduleHeader({credits, semesterInfo, setSemesters} : {
     credits: number, 
     semesterInfo: CourseSemester, 
-    setSemesters: React.Dispatch<React.SetStateAction<CourseSemester[]>>
+    setSemesters: DispatcherType<CourseSemester[]>
 }) {
     const classes = useStyles();
     const deleteSemester = () => {

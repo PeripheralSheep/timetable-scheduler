@@ -1,14 +1,16 @@
 import { Tooltip } from "@fluentui/react-components";
 import TooltipContent from "./TooltipContent";
 import { useStyles } from "../../styles/CompletedCourses.classNames";
-import type { Course } from "../../types/Degree.types";
+import type { Course } from "../../../../types/Degree.types";
+import type { DispatcherType } from "../../../../types/StateProps.types";
 
 export default function CheckboxOption( {course,selectedCourses, setSelectedCourses}: {
     course: Course, 
     selectedCourses: string[], 
-    setSelectedCourses: React.Dispatch<React.SetStateAction<string[]>>
+    setSelectedCourses: DispatcherType<string[]>
 }) {
     const classes = useStyles();
+    
     const addCourse = (courseCode: string) => (
         setSelectedCourses( (prev) => [
             ...prev,

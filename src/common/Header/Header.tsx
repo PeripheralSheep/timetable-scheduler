@@ -1,9 +1,9 @@
 import { useStyles } from './styles/Header.classNames'
-export default function Header({heading}:{heading: string}) {
+export default function Header({children}:{children: React.ReactNode}) {
     const classes = useStyles();
     return (
         <header className={classes.header}>
-            <h2>{heading}</h2>
+            <h2>{children}</h2>
         </header>
     )
 }

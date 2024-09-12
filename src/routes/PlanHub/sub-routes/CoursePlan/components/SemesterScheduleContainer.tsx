@@ -1,7 +1,7 @@
 import { useStyles } from "../styles/coursePlan.classNames";
 import NewSemesterButton from "./NewSemesterButton";
 import SemesterScheduleCard from "./SemesterScheduleCard";
-import type { Course, CourseSemester } from "../../CompletedCourses/types/Degree.types";
+import type { Course, CourseSemester } from "../../../types/Degree.types";
 import React from "react";
 
 export default function SemesterScheduleContainer({semestersInfo, setSemestersInfo} : {

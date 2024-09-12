@@ -1,4 +1,4 @@
-import type { Course } from "../../types/Degree.types"
+import type { Course } from "../../../../types/Degree.types"
 export default function TooltipContent(props: Course) {
     return (
         <div>

@@ -1,8 +1,9 @@
 import Button from "./Button";
 import { useStyles } from "../styles/coursePlan.classNames";
-import type { CourseSemester } from "../../CompletedCourses/types/Degree.types";
+import type { CourseSemester } from "../../../types/Degree.types";
+import { DispatcherType } from "../../../types/StateProps.types";
 export default function NewSemesterButton({setSemestersInfo, newSemesterContext, associatedSemesterIndex, initialSemester} : {
-    setSemestersInfo: React.Dispatch<React.SetStateAction<CourseSemester[]>>, 
+    setSemestersInfo: DispatcherType<CourseSemester[]>, 
     newSemesterContext: "above" | "below", 
     associatedSemesterIndex?: number, 
     initialSemester: {year: number, 

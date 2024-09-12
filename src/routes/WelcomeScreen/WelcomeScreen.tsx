@@ -1,8 +1,10 @@
 import { useStyles } from './styles/WelcomeScreen.classNames'
 
-import { useActionData, redirect } from 'react-router-dom';
+import { useActionData, redirect, useLoaderData, defer, Await, useAsyncValue } from 'react-router-dom';
 import type { FormErrors } from './types/errors.types';
 import GetStartedForm from './components/GetStartedForm';
+import { Suspense } from 'react';
+import type { DegreesData } from './types/degreeData.types';
 
 export async function action( {request} : {request: Request}){
     const formData = await request.formData();
@@ -21,13 +23,28 @@ export async function action( {request} : {request: Request}){
         return redirect(`/${formData.get("degree")}/${formData.get("academicYear")}/plan-hub`)
 }
 
+export async function loader(){
+    const degreesData = await fetch("/src/data/degreeInfo.json");
+    return defer({degreesData: degreesData.json()})
+}
+
+
 export default function WelcomeScreen() {
     const errors: FormErrors = useActionData() as FormErrors;
     const classes = useStyles();
+    const { degreesData } = useLoaderData() as {degreesData: DegreesData};
 
     return (
         <div className={classes.outerCard}>
-            <GetStartedForm errors={errors}/>
+            <Suspense fallback={<div>Loading...</div>}>
+                <Await
+                    resolve={degreesData}
+                    errorElement={<div>Error!</div>}
+                >
+                    {(resolvedDegreeData) => <GetStartedForm errors={errors} degreesData={resolvedDegreeData}/>}
+                </Await>
+            </Suspense>
+            
         </ div>
     )
 }

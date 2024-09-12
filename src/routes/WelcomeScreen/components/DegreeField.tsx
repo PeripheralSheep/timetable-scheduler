@@ -1,11 +1,20 @@
 import { Field, Dropdown, OptionGroup, Option } from "@fluentui/react-components"
 import { useStyles } from '../styles/WelcomeScreen.classNames';
+import type { DegreesData } from "../types/degreeData.types";
 
-export default function DegreeField({setDegree, degreeError} : {
+export default function DegreeField({setDegree, degreeError, degreesData} : {
     setDegree: React.Dispatch<React.SetStateAction<string>>, 
-    degreeError?:string
+    degreeError?:string,
+    degreesData: DegreesData
 }) {
     const classes = useStyles();
+    let degreesArray = [];
+    for(let degree in degreesData) {
+        degreesArray.push({
+            key: degree,
+            name: degreesData[degree].name
+        }) 
+    }
     return (
         <Field
             label="Choose Degree"
@@ -21,7 +30,12 @@ export default function DegreeField({setDegree, degreeError} : {
                 onOptionSelect={(event, data) => data.optionValue ? setDegree(data.optionValue) : setDegree('')}
             >
                 <OptionGroup label="Science and Technology">
-                    <Option value="BScCSAndMath" key="BScCSAndMath">BSc Computer Science and Mathematics</Option>
+                    {
+                      degreesArray.map((degree)=> (
+                        <Option value={degree.key} key={degree.key}>{degree.name}</Option>
+                      ))
+                    }
+                    
                 </OptionGroup>
             </Dropdown>
         </Field>

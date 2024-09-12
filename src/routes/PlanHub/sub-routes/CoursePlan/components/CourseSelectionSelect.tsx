@@ -1,9 +1,11 @@
-import type { Course, CourseSemester } from "../../CompletedCourses/types/Degree.types";
+import type { Course, CourseSemester } from "../../../types/Degree.types";
+import type { DispatcherType } from "../../../types/StateProps.types";
+
 import { useStyles } from "../styles/coursePlan.classNames";
 export default function CourseSelectionSelect({curCourse, courseOptions, setSemesterCourseList, curPosition, associatedSemester}: {
     curCourse: Course | null, 
     courseOptions : Course[], 
-    setSemesterCourseList: React.Dispatch<React.SetStateAction<CourseSemester[]>>, 
+    setSemesterCourseList: DispatcherType<CourseSemester[]>, 
     curPosition: number, associatedSemester: CourseSemester
 }) {
     const classes = useStyles();
@@ -45,8 +47,19 @@ export default function CourseSelectionSelect({curCourse, courseOptions, setSeme
     return (
         <div className={classes.courseSelection}>
             <select value={curCourse?.code} onChange={changeCourse} name="courseChoice" id="courseChoice">
-                <option value={curCourse?.code}>{curCourse ? `${curCourse.code} - ${curCourse.name}` : 'Choose a Course'}</option>
-                {courseOptions.map( (courseOption) => <option key={courseOption.code} value={courseOption.code}>{courseOption.code} - {courseOption.name}</option>)}
+                <option 
+                    value={curCourse?.code}
+                >
+                    {curCourse ? `${curCourse.code} - ${curCourse.name}` : 'Choose a Course'}
+                </option>
+                {courseOptions.map( (courseOption) => (
+                    <option 
+                        key={courseOption.code} 
+                        value={courseOption.code}
+                    >
+                        {courseOption.code} - {courseOption.name}
+                    </option>
+                ))}
             </select>
             <button onClick={removeChoice}>x</button>
         </div>
