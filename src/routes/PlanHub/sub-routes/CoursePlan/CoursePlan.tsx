@@ -1,25 +1,11 @@
-import { useState } from "react";
 import { useStyles } from "./styles/coursePlan.classNames";
 import SemesterScheduleContainer from "./components/SemesterScheduleContainer";
 import AnalyzeDialog from "./components/AnalyzeDialog";
-import type { CourseSemester } from "../../types/Degree.types";
-
+import { useSemestersInfo} from "../../PlanHub";
 export default function CoursePlan() {
     const classes = useStyles();
-    const [semestersInfo, setSemestersInfo] = useState<CourseSemester[]>([
-        {
-            year: 2024,
-            maxCredits: 18,
-            semesterNumber: 1,
-            courseList: []
-        },
-        {
-            year: 2025,
-            maxCredits: 18,
-            semesterNumber: 1,
-            courseList: []
-        }
-    ]);
+    const { semestersInfo, setSemestersInfo } = useSemestersInfo();
+
     return (
         <div className={classes.outerCard}>
             <h2>Make Course Plan</h2>

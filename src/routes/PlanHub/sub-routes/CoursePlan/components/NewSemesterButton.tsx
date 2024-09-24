@@ -1,6 +1,6 @@
 import Button from "./Button";
 import { useStyles } from "../styles/coursePlan.classNames";
-import type { CourseSemester } from "../../../types/Degree.types";
+import type { CourseSemester } from "../../../../../types/course.types.ts"
 import { DispatcherType } from "../../../types/StateProps.types";
 export default function NewSemesterButton({setSemestersInfo, newSemesterContext, associatedSemesterIndex, initialSemester} : {
     setSemestersInfo: DispatcherType<CourseSemester[]>, 

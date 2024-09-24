@@ -12,7 +12,7 @@ export default function CompletedCourses() {
         faculty: "ALL",
         discipline: "ALL"
     });
-    console.log(filters);
+
     return (
         <div className={classes.outerCard}>
             <h2>Choose Completed Courses</h2>

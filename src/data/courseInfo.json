@@ -1,0 +1,54 @@
+{
+    "COMP1170": {
+        "code": "COMP1170",
+        "name": "Entrepreneurship for Computer Scientists",
+        "credits": 3,
+        "antirequisites": ["COMP1130"],
+        "semester": 1
+    },
+    "COMP1180": {
+        "code": "COMP1180",
+        "name": "MATHEMATICS FOR COMPUTER SCIENCE I",
+        "credits": 3,
+        "antirequisites": ["MATH1101"]
+    },
+    "COMP1205": {
+        "code": "COMP1205",
+        "name": "COMPUTING I",
+        "credits": 3,
+        "antirequisites": ["COMP1105"]
+    },
+    "COMP1210": {
+        "code": "COMP1210",
+        "name": "COMPUTING II",
+        "credits": 3,
+        "prerequisites": "COMP1205",
+        "antirequisites": ["COMP1115"],
+        "semester": 2
+    },
+    "COMP1215": {
+        "code": "COMP1215",
+        "name": "UNIX",
+        "credits": 3,
+        "prerequisites": "COMP1205",
+        "antirequisites": ["COMP1125"]
+    },
+    "COMP2220": {
+        "code": "COMP2220",
+        "name": "COMPUTER SYSTEM ARCHITECTURE",
+        "credits": 3,
+        "prerequisites": {
+            "or": [
+                "ELET1210",
+                {
+                    "and": [
+                        "COMP1180",
+                        "COMP1210"
+                    ]
+                }
+            ]
+        },
+        "antirequisites": ["COMP2125"]
+    }
+
+}

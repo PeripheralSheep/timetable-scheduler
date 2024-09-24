@@ -1,6 +1,6 @@
 import { Field, Dropdown, OptionGroup, Option } from "@fluentui/react-components"
 import { useStyles } from '../styles/WelcomeScreen.classNames';
-import type { DegreesData } from "../types/degreeData.types";
+import type { DegreesData } from "../../../types/degree.types";
 
 export default function DegreeField({setDegree, degreeError, degreesData} : {
     setDegree: React.Dispatch<React.SetStateAction<string>>, 

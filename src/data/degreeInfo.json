@@ -1,69 +1,116 @@
 {
     "BScMathAndComp": {
       "name": "BSc. Computer Science and Mathematics",
-      "years": [
-        2015,
-        2016,
-        2017,
-        2018,
-        2019,
-        2020,
-        2021,
-        2022,
-        2023,
-        2024
-      ]
+      "2024": {
+        "and": [
+          "COMP1170",
+          "COMP1180",
+          "COMP1205",
+          "COMP1210",
+          "COMP1215",
+          "MATH1141",
+          "MATH1152",
+          "MATH1190",
+          "MATH1195",
+          "MATH1235",
+          "COMP2210",
+          "COMP2220",
+          "COMP2225",
+          "COMP2232",
+          "COMP2611",
+          "MATH2304",
+          "MATH2305",
+          "MATH2310",
+          "MATH2315",
+          "MATH2321",
+          "COMP3310",
+          "COMP3320",
+          "COMP3330",
+          "MATH3543",
+          "MATH3545",
+          "MATH3550",
+          {
+            "or": [
+              "MATH3555",
+              "MATH3560"
+            ]
+          },
+          {
+            "minimum": {
+              "credits": 6,
+              "area": "COMP",
+              "type": "elective"
+            }
+          },
+          {
+            "minimum": {
+              "credits": 3,
+              "choices": "MATH"
+            }
+          }
+        ]
+      },
+      "2023": {
+        "and": [
+          "COMP1170",
+          "COMP1180",
+          "COMP1205",
+          "COMP1210",
+          "COMP1215",
+          "MATH1141",
+          "MATH1152",
+          "MATH1190",
+          "COMP2225",
+          "COMP2232",
+          "COMP2611",
+          "MATH2304",
+          "MATH2305",
+          "MATH2310",
+          "MATH2315",
+          "MATH2321",
+          "COMP3310",
+          "COMP3320",
+          "COMP3330",
+          "MATH3543",
+          "MATH3545",
+          "MATH3550",
+          {
+            "or": [
+              "MATH3555",
+              "MATH3560"
+            ]
+          },
+          {
+            "minimum": {
+              "credits": 6,
+              "choices": "COMP"
+            }
+          },
+          {
+            "minimum": {
+              "credits": 3,
+              "area": "MATH"
+            }
+          }
+        ]
+      },
+      "2022": {},
+      "2021": {}
     },
     "BScComp": {
       "name": "BSc. Computer Science",
-      "years": [
-        2015,
-        2016,
-        2017,
-        2018,
-        2019,
-        2020,
-        2021,
-        2022,
-        2023,
-        2024
-      ]
+      "2024": {}
     },
     "BScCompDouble": {
       "name": "BSc. Computer Science (Double)",
-      "years": [
-        2019,
-        2020,
-        2021,
-        2022,
-        2023,
-        2024
-      ]
+      "2020": {}
     },
     "BScMath": {
       "name": "BSc. Mathematics",
-      "years": [
-        2010,
-        2012,
-        2019,
-        2020,
-        2021,
-        2022,
-        2023,
-        2024
-      ]
+      "2022": {}
     },
     "BScMathDouble": {
       "name": "BSc. Mathematics (Double)",
-      "years": [
-        2010,
-        2012,
-        2019,
-        2020,
-        2021,
-        2022,
-        2023,
-        2024
-      ]
+      "2023": {}
     }
 }

@@ -4,15 +4,15 @@ import { useActionData, redirect, useLoaderData, defer, Await, useAsyncValue } f
 import type { FormErrors } from './types/errors.types';
 import GetStartedForm from './components/GetStartedForm';
 import { Suspense } from 'react';
-import type { DegreesData } from './types/degreeData.types';
+import type { DegreesData } from '../../types/degree.types';
 
 export async function action( {request} : {request: Request}){
     const formData = await request.formData();
 
-    if(formData.get("degree") === '' || formData.get("academicYear") === '')
+    if(formData.get("degreeKey") === '' || formData.get("academicYear") === '')
     {
         const errors: FormErrors = {};
-        if(formData.get("degree") === '')
+        if(formData.get("degreeKey") === '')
             errors.degree= "Select a degree"
         if(formData.get("academicYear") === '')
             errors.academicYear =  "Select year you started degree"
@@ -20,7 +20,7 @@ export async function action( {request} : {request: Request}){
         return errors;
     }
     else
-        return redirect(`/${formData.get("degree")}/${formData.get("academicYear")}/plan-hub`)
+        return redirect(`/${formData.get("degreeKey")}/${formData.get("academicYear")}/plan-hub`)
 }
 
 export async function loader(){

@@ -3,12 +3,14 @@ import type { FilterState } from "../../types/FilterTypes.types";
 
 export default function DisciplineFilterField({filters, setFilters} : FilterState) {
     const classes = useStyles();
+
     const handleDisciplineChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setFilters((prev) => ({
             ...prev,
             discipline: e.target.value.trim()
         })
     )}
+    
     return (
         <div className={classes.filterField}>
             <label htmlFor="discipline-select">Discipline</label>

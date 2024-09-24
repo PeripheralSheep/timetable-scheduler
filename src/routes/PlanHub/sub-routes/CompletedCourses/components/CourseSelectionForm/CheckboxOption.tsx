@@ -1,17 +1,18 @@
 import { Tooltip } from "@fluentui/react-components";
 import TooltipContent from "./TooltipContent";
 import { useStyles } from "../../styles/CompletedCourses.classNames";
-import type { Course } from "../../../../types/Degree.types";
+import type { Course } from "../../../../../../types/course.types";
 import type { DispatcherType } from "../../../../types/StateProps.types";
+import type { CourseCode } from "../../../../../../types/course.types";
 
 export default function CheckboxOption( {course,selectedCourses, setSelectedCourses}: {
     course: Course, 
-    selectedCourses: string[], 
-    setSelectedCourses: DispatcherType<string[]>
+    selectedCourses: CourseCode[], 
+    setSelectedCourses: DispatcherType<CourseCode[]>
 }) {
     const classes = useStyles();
     
-    const addCourse = (courseCode: string) => (
+    const addCourse = (courseCode: CourseCode) => (
         setSelectedCourses( (prev) => [
             ...prev,
             courseCode
@@ -23,7 +24,7 @@ export default function CheckboxOption( {course,selectedCourses, setSelectedCour
     )
 
     const handleCourseChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        e.target.checked ? addCourse(e.target.value) : removeCourse(e.target.value);
+        e.target.checked ? addCourse(e.target.value as CourseCode) : removeCourse(e.target.value);
     }
     
     return(

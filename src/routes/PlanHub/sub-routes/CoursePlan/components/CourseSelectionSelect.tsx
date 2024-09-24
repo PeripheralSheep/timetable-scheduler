@@ -1,4 +1,4 @@
-import type { Course, CourseSemester } from "../../../types/Degree.types";
+import type { Course, CourseSemester } from "../../../../../types/course.types.ts"
 import type { DispatcherType } from "../../../types/StateProps.types";
 
 import { useStyles } from "../styles/coursePlan.classNames";

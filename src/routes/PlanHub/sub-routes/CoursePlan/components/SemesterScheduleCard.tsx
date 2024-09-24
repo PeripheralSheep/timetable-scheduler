@@ -2,7 +2,7 @@ import { useStyles } from "../styles/coursePlan.classNames";
 import NewCourseButton from "./NewCourseButton";
 import SemesterScheduleHeader from "./SemesterScheduleHeader";
 import CourseSelectionSelect from "./CourseSelectionSelect";
-import type { Course, CourseSemester } from "../../../types/Degree.types";
+import type { Course, CourseSemester } from "../../../../../types/course.types.ts"
 import type { DispatcherType } from "../../../types/StateProps.types";
 
 export default function SemesterScheduleCard({ semester, availableCourses, setSemestersInfo}:{
