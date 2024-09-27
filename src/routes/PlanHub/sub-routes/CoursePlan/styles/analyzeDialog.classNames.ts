@@ -16,7 +16,10 @@ export const useStyles = makeStyles({
             textAlign:'center'
         },
         textAlign: 'left',
-        width:'100%'
+        width:'100%',
+        '& ul': {
+            paddingLeft: '20px'
+        }
     },
     passList: {
         '& > li':{
