@@ -12,29 +12,49 @@ type SuccesfulPrerequisiteReturnType = {
 
 type UnsuccessfulPrerequisteReturnType = {
     satisfied: false,
-    errorMessages: string
+    errorMessagesJSX: JSX.Element;
 }
-type CheckPrerequisiteReturnType = SuccesfulPrerequisiteReturnType | UnsuccessfulPrerequisteReturnType
+
+type ErrorCourseCodeType = {
+    description: string,
+    errorCourseCodes: (string | JSX.Element)[];
+}
+
+type CheckPrerequisiteHelperReturnType = SuccesfulPrerequisiteReturnType | UnsuccessfulPrerequisteReturnType
+
+export interface SemesterErrors  {
+    semesterKey: string,
+    errorsInSemester: SpecificErrorType[]
+}
+
+type SpecificErrorType = {
+    area: "Prerequisite" | "Corequisite" | "Antirequisite",
+    errors: JSX.Element[]
+}
+
 export default function AnalyzeDialog() {
     const classes = useStyles();
     const { semestersInfo } = useSemestersInfo();
     const { completedCourses } = useCompletedCourses();
-    const [errors, setErrors] = useState<string>("");
+    const [errors, setErrors] = useState<SemesterErrors[]>([]);
     function handleAnalysis() {
-        const checkedCourses = new Set();
-        let overallErrorMessages: string[] = []
-        
-        function checkPrerequisites(course: Course): CheckPrerequisiteReturnType {
+        const checkedCourses = new Set();   
+        function checkPrerequisites(course: Course) {
             //This function is a recursive function used to decompose the complex prerequisite object
-            function checkPrerequisitesHelper(key: "or" | "and", prerequisites: Array<CourseCode | VagueDegreeRequirements>): CheckPrerequisiteReturnType {
+            function checkPrerequisitesHelper(key: "or" | "and", prerequisites: Array<CourseCode | VagueDegreeRequirements>): CheckPrerequisiteHelperReturnType {
                 /*  
                     This variable will be used to check if the prerequisite condition has been satisfied
                     If key is "and" then we need to show the existence of one unsatisfactory index
                     If key is "or" we need to prove the existence of one satisfactory index
                     Therefore satisfied initialized to "true" if "and", "or" if false
                 */
+                
                 let satisfied = (key === "and");
-                let errorCourseCodes: string[] = []
+                let errorsOnLevel: ErrorCourseCodeType = {
+                    description: "",
+                    errorCourseCodes: []
+                };
+                
                 for(let i = 0; i < prerequisites.length; i++) {
                     const courseData = prerequisites[i]
 
@@ -47,7 +67,7 @@ export default function AnalyzeDialog() {
                             if(key === "and") {
                                 satisfied = false;
                             }
-                            errorCourseCodes.push(courseData);
+                            errorsOnLevel.errorCourseCodes.push(courseData);
                         }
                     }
                     //It is a complex object made of vague requirements
@@ -61,37 +81,50 @@ export default function AnalyzeDialog() {
                                 satisfied = false;
                             }
                                
-                            let resultErrorMessageWithCourseGroup = "";
+                            let errorMessageGroup = "";
                             if(typeof value !== "string") {
                                 for(let i = 0; i < value.length; i++) {
-                                    resultErrorMessageWithCourseGroup += value[i];
+                                    errorMessageGroup += value[i];
                                     if(i !== value.length - 1) 
-                                        resultErrorMessageWithCourseGroup += ` ${key} `;
+                                        errorMessageGroup += ` ${key} `;
                                 }
                             }
-                            
-                            resultErrorMessageWithCourseGroup += `<ul>${result.errorMessages}</ul>`
-                            errorCourseCodes.push(resultErrorMessageWithCourseGroup)
+                            const NewMessageGroup = (
+                                <>
+                                    {errorMessageGroup}
+                                    <ul>
+                                        {result.errorMessagesJSX}
+                                    </ul>
+                                </>
+                            )
+                            errorsOnLevel.errorCourseCodes.push(NewMessageGroup)
                         }
                     }
                 }
                 if(!satisfied) {
-                    let errorMessage = "";
                     if(key === "or") {
-                        errorMessage = "Requires at least one of the following courses/group of courses:"
+                        errorsOnLevel.description = "Requires at least one of the following courses/group of courses:"
                     }
                     else if(key === "and"){
-                        errorMessage = "Missing the following courses/group of courses:\n";
+                        errorsOnLevel.description = "Missing the following courses/group of courses:";
                     }
+                    
+                    const NewErrorElement = (
+                        <li>
+                            <h6>{errorsOnLevel.description}</h6>
+                            <ul>
+                            {
+                                errorsOnLevel.errorCourseCodes.map( (error, i) => {
+                                    return <li key={i}>{error}</li>
+                                })
+                            }
+                            </ul>
+                        </li>
+                    )
 
-                    errorMessage += "<ul>"
-                    for(let i = 0; i < errorCourseCodes.length; i++) {
-                        errorMessage +=  `<li>${errorCourseCodes[i]}</li>`;
-                    }
-                    errorMessage += "</ul>"
                     return {
                         satisfied: satisfied,
-                        errorMessages: errorMessage
+                        errorMessagesJSX: NewErrorElement
                     };
                 }
                 else {
@@ -116,8 +149,17 @@ export default function AnalyzeDialog() {
                     };
                 else {
                     return {
+                        
                         satisfied: false,
-                        errorMessages:`Prerequisite Error - ${course.code}\n\tMissing ${course.prerequisites}`
+                        errorMessagesJSX: (
+                            <>
+                                <h5>{course.code}</h5>
+                                <ul>
+                                    <li><h6>Missing {course.prerequisites}</h6></li>
+                                </ul>
+                                
+                            </>
+                        )
                     }
                 }
             }
@@ -128,12 +170,23 @@ export default function AnalyzeDialog() {
                 const [key, value] = Object.entries(course.prerequisites)[0];
                 const result = checkPrerequisitesHelper(key as "or" | "and", value);
                 if(!result.satisfied) {
-                    result.errorMessages = `${course.code}<ul>${result.errorMessages}</ul>`;
+                    result.errorMessagesJSX = (
+                        <>
+                            <h5>{course.code}</h5>
+                            <ul>
+                                {result.errorMessagesJSX}
+                            </ul>
+                        </>
+                    )
                 }
-                return result;
+                return {
+                    courseCode : course.code,
+                    ...result
+                }
             }
         }
 
+        const errorsGenerated: SemesterErrors[] = []
         //Add courses completed previously
         for(let i = 0; i < completedCourses.length; i++) {
             checkedCourses.add(completedCourses[i]);
@@ -141,15 +194,34 @@ export default function AnalyzeDialog() {
 
         //Check the prerequisites for each course in each semester
         for(let i = 0; i < semestersInfo.length; i++) {
+            const semesterErrorList: SemesterErrors = {
+                semesterKey: `${semestersInfo[i].semesterNumber} ${semestersInfo[i].year} - ${semestersInfo[i].year+1}`,
+                errorsInSemester: []
+            }
+
+            let semesterPrereqErrors: SpecificErrorType = {
+                area: "Prerequisite",
+                errors: []
+            }
+
             for(let j = 0; j < semestersInfo[i].courseList.length; j++) {
                 const curCourse = semestersInfo[i].courseList[j]
                 if(curCourse) {
                     let results = checkPrerequisites(curCourse)
-                    if(!results.satisfied)
-                        setErrors(results.errorMessages);
+                    if(!results.satisfied && results.errorMessagesJSX) {
+                        semesterPrereqErrors.errors.push(results.errorMessagesJSX)
+                    }
                 }
             }
 
+            if(semesterPrereqErrors.errors.length > 0) {
+                semesterErrorList.errorsInSemester.push(semesterPrereqErrors)
+            }
+            
+            if(semesterErrorList.errorsInSemester.length > 0) {
+                errorsGenerated.push(semesterErrorList)
+            }
+            
             /*
                 After we check all the courses in a semester, we add them to checkedCourses
                 We do this for two reasons:
@@ -166,6 +238,7 @@ export default function AnalyzeDialog() {
                 }
             }
         }
+        setErrors(errorsGenerated);
     }
 
     return (

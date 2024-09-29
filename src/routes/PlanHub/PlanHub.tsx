@@ -1,7 +1,7 @@
 import { useState, type Dispatch, type SetStateAction } from "react";
 import { Outlet, useOutletContext, useLoaderData } from "react-router-dom";
 import type { CourseCode } from "../../types/course.types.ts";
-import type { CourseSemester, CoursesJSON } from "../../types/degree.types.ts";
+import type { CourseSemester, CoursesJSON } from "../../types/course.types.ts";
 
 import Header from "../../common/Header/Header";
 import CoursePlan from "./sub-routes/CoursePlan/CoursePlan.tsx";

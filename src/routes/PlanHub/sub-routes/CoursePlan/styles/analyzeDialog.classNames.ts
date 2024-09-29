@@ -33,6 +33,18 @@ export const useStyles = makeStyles({
                 listStyleImage: 'none',
                 listStyleType: "-"
             }
-        }
-    }
+        },
+        '& h4': {
+            margin: `${tokens.spacingVerticalS} 0`
+        },
+        '& h5': {
+            fontSize: tokens.fontSizeBase300
+        },
+        '& h6': {
+            fontSize: tokens.fontSizeBase200
+        },
+        '& h5, h6': {
+            margin: `0`
+        },
+    },
 })
