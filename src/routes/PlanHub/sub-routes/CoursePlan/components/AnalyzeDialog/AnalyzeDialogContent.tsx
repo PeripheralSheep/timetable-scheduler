@@ -1,5 +1,5 @@
 import { DialogContent } from "@fluentui/react-components"
-import { useStyles } from "../styles/analyzeDialog.classNames";
+import { useStyles } from "../../styles/analyzeDialog.classNames";
 import type { SemesterErrors } from "./AnalyzeDialog";
 export default function AnalyzeDialogContent({errors} : {errors?: SemesterErrors[]}) {
     const classes = useStyles()
@@ -26,7 +26,9 @@ export default function AnalyzeDialogContent({errors} : {errors?: SemesterErrors
                                         return (
                                             <li key={errorInSemester.area}>
                                                 <h4>{errorInSemester.area} Errors</h4>
-                                                {errorInSemester.errors}
+                                                <ul>
+                                                    {errorInSemester.errors}
+                                                </ul>
                                             </li>
                                         )
                                     })}

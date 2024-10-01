@@ -20,7 +20,7 @@ export default function SemesterScheduleContainer({semestersInfo, setSemestersIn
     const courseList: Course[] = Object.values(courses);
     const selectableCourses = courseList.filter((course) => {
         return (!semestersInfo.some((semester) => semester.courseList.some((usedCourses) => usedCourses?.code === course.code))
-                && !completedCourses.includes(course.code))
+                && !completedCourses.has(course.code))
     })
 
     const showTopNewSemesterButton: boolean = semestersInfo.length !== 0 && !(startingPoint.year === semestersInfo[0].year && startingPoint.semesterNumber === semestersInfo[0].semesterNumber);

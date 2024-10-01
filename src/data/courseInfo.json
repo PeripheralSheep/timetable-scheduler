@@ -12,6 +12,15 @@
         "credits": 3,
         "antirequisites": ["MATH1101"]
     },
+    "COMP1115": {
+        "code": "COMP1115",
+        "name": "COMPUTING II Alternate",
+        "credits": 3,
+        "corequisites": ["COMP1180"],
+        "prerequisites": "COMP1205",
+        "antirequisites": ["COMP1210"],
+        "semester": 2
+    },
     "COMP1205": {
         "code": "COMP1205",
         "name": "COMPUTING I",

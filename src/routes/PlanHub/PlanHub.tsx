@@ -9,8 +9,8 @@ import CompletedCourses from "./sub-routes/CompletedCourses/CompletedCourses.tsx
 import PlanHubIndex from "./sub-routes/PlanHubIndex/PlanHubIndex.tsx";
 
 type CompletedCoursesContextType = {
-  completedCourses: CourseCode[],
-  setCompletedCourses: Dispatch<SetStateAction<CourseCode[]>>
+  completedCourses: Set<CourseCode>
+  setCompletedCourses: Dispatch<SetStateAction<Set<CourseCode>>>
 }
 
 type SemestersInfoContextType = {
@@ -74,7 +74,7 @@ export async function loader( {params} : {params: DegreeParams} ) {
 }
 
 export default function PlanHub() {
-  const [completedCourses, setCompletedCourses] = useState<Array<CourseCode>>([])
+  const [completedCourses, setCompletedCourses] = useState<Set<CourseCode>>(new Set())
   const [semestersInfo, setSemestersInfo] = useState<CourseSemester[]>([
     {
         year: 2024,

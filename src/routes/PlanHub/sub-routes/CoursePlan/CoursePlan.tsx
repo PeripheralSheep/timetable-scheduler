@@ -1,6 +1,6 @@
 import { useStyles } from "./styles/coursePlan.classNames";
 import SemesterScheduleContainer from "./components/SemesterScheduleContainer";
-import AnalyzeDialog from "./components/AnalyzeDialog";
+import AnalyzeDialog from "./components/AnalyzeDialog/AnalyzeDialog";
 import { useSemestersInfo} from "../../PlanHub";
 export default function CoursePlan() {
     const classes = useStyles();

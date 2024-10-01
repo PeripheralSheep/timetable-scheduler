@@ -7,24 +7,24 @@ import type { CourseCode } from "../../../../../../types/course.types";
 
 export default function CheckboxOption( {course,selectedCourses, setSelectedCourses}: {
     course: Course, 
-    selectedCourses: CourseCode[], 
-    setSelectedCourses: DispatcherType<CourseCode[]>
+    selectedCourses: Set<CourseCode>, 
+    setSelectedCourses: DispatcherType<Set<CourseCode>>
 }) {
     const classes = useStyles();
     
     const addCourse = (courseCode: CourseCode) => (
-        setSelectedCourses( (prev) => [
-            ...prev,
-            courseCode
-        ])
+        setSelectedCourses( (prev) => new Set(prev.add(courseCode)))
     )
 
-    const removeCourse = (courseCode: string) => (
-        setSelectedCourses((prev) => prev.filter( (course) => course !== courseCode))
+    const removeCourse = (courseCode: CourseCode) => (
+        setSelectedCourses((prev) => {
+            prev.delete(courseCode)
+            return new Set(prev);
+        })
     )
 
     const handleCourseChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        e.target.checked ? addCourse(e.target.value as CourseCode) : removeCourse(e.target.value);
+        e.target.checked ? addCourse(e.target.value as CourseCode) : removeCourse(e.target.value as CourseCode);
     }
     
     return(
@@ -33,7 +33,7 @@ export default function CheckboxOption( {course,selectedCourses, setSelectedCour
                 <input 
                     type="checkbox" 
                     onChange={handleCourseChange} 
-                    checked={selectedCourses.includes(course.code)} 
+                    checked={selectedCourses.has(course.code)} 
                     value={course.code} 
                     name={course.code} 
                     id={course.code} />
