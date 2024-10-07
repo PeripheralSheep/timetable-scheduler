@@ -1,22 +1,30 @@
-import { Form } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useStyles } from "../../styles/CompletedCourses.classNames";
 import CheckboxField from "./CheckboxField";
 import type { Filter } from "../../types/FilterTypes.types";
-
 export default function CourseSelectionForm({filters} : {filters: Filter}) {
     const classes = useStyles();
     
     return (
-        <Form className={classes.form}>
+        <div className={classes.form}>
             <CheckboxField 
                 filters={filters} 
             />
-            <button 
-                type="submit" 
-                className={classes.submitButton}
-            >
-                Make Course Plan
-            </button>
-        </Form>
+            <div>
+                <Link
+                    to=".."
+                    className={classes.submitButton}
+                >
+                    Back
+                </Link>
+                <Link
+                    to="../make-plan"
+                    className={classes.submitButton}
+                >
+                    Make Course Plan
+                </Link>
+            </div>
+            
+        </div>
     )
 }

@@ -45,7 +45,8 @@
           {
             "minimum": {
               "credits": 3,
-              "choices": "MATH"
+              "choices": "MATH",
+              "type": "elective"
             }
           }
         ]

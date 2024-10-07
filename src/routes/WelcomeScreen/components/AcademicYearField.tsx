@@ -1,6 +1,6 @@
 import { Field, Dropdown, Option } from "@fluentui/react-components"
 import { useStyles } from '../styles/WelcomeScreen.classNames';
-import type { DegreesData, DegreeData } from "../../../types/degree.types";
+import type { DegreesData } from "../../../types/degree.types";
 
 
 export default function AcademicYearField({setAcademicYear, academicYearError, degreesData, chosenDegree} : {
@@ -11,11 +11,11 @@ export default function AcademicYearField({setAcademicYear, academicYearError, d
 }) {
     const classes = useStyles();
     const { name = "" ,...degreeYears} = degreesData[chosenDegree] || {};
-    let options = [];
+    let options: JSX.Element[] = [];
 
     for(let yearString in degreeYears) {
         let year: number = Number(yearString);
-        options.push(<Option value={`${year}-${year+1}`} key={`${year}-${year+1}`}>{`${year}-${year+1}`}</Option>)
+        options.push(<Option value={`${year}`} key={`${year}`}>{`${year}-${year+1}`}</Option>)
     }
     return(
         <Field

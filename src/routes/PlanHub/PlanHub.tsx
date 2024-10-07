@@ -1,7 +1,7 @@
 import { useState, type Dispatch, type SetStateAction } from "react";
 import { Outlet, useOutletContext, useLoaderData } from "react-router-dom";
-import type { CourseCode } from "../../types/course.types.ts";
-import type { CourseSemester, CoursesJSON } from "../../types/course.types.ts";
+import type { OverallDegreeRequirements } from "../../types/degree.types.ts";
+import type { CourseSemester, CoursesJSON, CourseCode } from "../../types/course.types.ts";
 
 import Header from "../../common/Header/Header";
 import CoursePlan from "./sub-routes/CoursePlan/CoursePlan.tsx";
@@ -18,18 +18,23 @@ type SemestersInfoContextType = {
   setSemestersInfo: Dispatch<SetStateAction<CourseSemester[]>>
 }
 
+type DegreeDataContextType = {
+  degreeRequirements: OverallDegreeRequirements
+}
+
 type CoursesObjectType = {
   courses: CoursesJSON
 }
 
 interface DegreeParams {
     degree: string,
-    academicYear: string
+    academicYear: string,
 }
 
-interface HeaderParams {
+interface DegreeLoaderReturn {
   degreeName: string,
-  academicYear: string
+  academicYear: string,
+  degreeRequirements: OverallDegreeRequirements
 }
 
 export function useCompletedCourses() {
@@ -40,8 +45,12 @@ export function useSemestersInfo() {
   return useOutletContext<SemestersInfoContextType>();
 }
 
-export function useCourses() {
+export function useAvailableCourses() {
   return useOutletContext<CoursesObjectType>();
+}
+
+export function useDegreeRequirements() {
+  return useOutletContext<DegreeDataContextType>();
 }
 
 export const subRoutes = [
@@ -66,7 +75,8 @@ export async function loader( {params} : {params: DegreeParams} ) {
     return {
       degreeData: {
         degreeName: data[0][params.degree]["name"],
-        academicYear: params.academicYear
+        academicYear: params.academicYear,
+        degreeRequirements: data[0][params.degree][params.academicYear]
       },
       courses: data[1]
     }
@@ -75,31 +85,20 @@ export async function loader( {params} : {params: DegreeParams} ) {
 
 export default function PlanHub() {
   const [completedCourses, setCompletedCourses] = useState<Set<CourseCode>>(new Set())
-  const [semestersInfo, setSemestersInfo] = useState<CourseSemester[]>([
-    {
-        year: 2024,
-        maxCredits: 18,
-        semesterNumber: 1,
-        courseList: []
-    },
-    {
-        year: 2025,
-        maxCredits: 18,
-        semesterNumber: 1,
-        courseList: []
-    }
-  ]);
+  const [semestersInfo, setSemestersInfo] = useState<CourseSemester[]>([]);
  
-  const {degreeData, courses} = useLoaderData() as { degreeData: HeaderParams, courses: CoursesJSON};
-  const heading = `${degreeData.degreeName} ${degreeData.academicYear}`
-
+  const {degreeData, courses} = useLoaderData() as { degreeData: DegreeLoaderReturn, courses: CoursesJSON};
+  const heading = `${degreeData.degreeName} ${degreeData.academicYear}-${parseInt(degreeData.academicYear)+1}`
+  const degreeRequirements = degreeData.degreeRequirements
+  console.log(degreeRequirements);
   return (
     <>
         <Header>{heading}</ Header>
         <Outlet context={ {
           courses,
+          degreeRequirements,
           completedCourses, setCompletedCourses, 
-          semestersInfo, setSemestersInfo} satisfies CoursesObjectType | CompletedCoursesContextType | SemestersInfoContextType}/>
+          semestersInfo, setSemestersInfo} satisfies CoursesObjectType | DegreeDataContextType | CompletedCoursesContextType | SemestersInfoContextType}/>
     </>
   )
 }

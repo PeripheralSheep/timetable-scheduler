@@ -2,11 +2,14 @@ import { useState } from 'react'
 import { useStyles } from "../../styles/analyzeDialog.classNames";
 import { Dialog, DialogTrigger, DialogSurface, DialogBody, DialogTitle, DialogActions,} from "@fluentui/react-components";
 import AnalyzeDialogContent from "./AnalyzeDialogContent";
-import { useSemestersInfo, useCompletedCourses } from "../../../../PlanHub";
+import { useSemestersInfo, useCompletedCourses, useDegreeRequirements } from "../../../../PlanHub";
 import type { CourseCode } from '../../../../../../types/course.types';
 import checkPrerequisites from "./utility/checkPrerequisites"
 import checkAntirequisites from './utility/checkAntirequisites';
 import checkCorequisites from './utility/checkCorequisites';
+import checkDegreeSatisfied from './utility/checkDegreeSatisfied';
+
+export type GeneralErrors = JSX.Element
 
 export interface SemesterErrors  {
     semesterKey: string,
@@ -22,13 +25,15 @@ export default function AnalyzeDialog() {
     const classes = useStyles();
     const { semestersInfo } = useSemestersInfo();
     const { completedCourses } = useCompletedCourses();
-    const [errors, setErrors] = useState<SemesterErrors[]>([]);
+    const {degreeRequirements} = useDegreeRequirements();
+    const [semesterErrors, setSemesterErrors] = useState<SemesterErrors[]>([]);
+    const [generalErrors, setGeneralErrors] = useState<GeneralErrors[]>([]);
+
     function handleAnalysis() {
         //Add courses completed previously to checkedCourses
         const checkedCourses = new Set<CourseCode>(completedCourses);   
-        const errorsGenerated: SemesterErrors[] = []
-        
-
+        const semesterErrorsGenerated: SemesterErrors[] = []
+        const generalErrorVar: GeneralErrors[] = []
         //Check the prerequisites for each course in each semester
         for(let i = 0; i < semestersInfo.length; i++) {
             
@@ -84,7 +89,7 @@ export default function AnalyzeDialog() {
             }
             
             if(semesterErrorList.errorsInSemester.length > 0) {
-                errorsGenerated.push(semesterErrorList)
+                semesterErrorsGenerated.push(semesterErrorList)
             }
             
             /*
@@ -103,7 +108,14 @@ export default function AnalyzeDialog() {
                 }
             }
         }
-        setErrors(errorsGenerated);
+
+        const degreeRequirementsResults = checkDegreeSatisfied(checkedCourses, degreeRequirements)
+        if(!degreeRequirementsResults.satisfied && degreeRequirementsResults.errorMessagesJSX) {
+            generalErrorVar.push(degreeRequirementsResults.errorMessagesJSX)
+        }
+        
+        setGeneralErrors(generalErrorVar);
+        setSemesterErrors(semesterErrorsGenerated);
     }
 
     return (
@@ -114,7 +126,7 @@ export default function AnalyzeDialog() {
             <DialogSurface>
                 <DialogBody className={classes.outerCard}>
                     <DialogTitle>Schedule Analysis</DialogTitle>
-                    <AnalyzeDialogContent errors={errors}/>
+                    <AnalyzeDialogContent generalErrors={generalErrors} semesterErrors={semesterErrors}/>
                     <DialogActions>
                         <DialogTrigger>
                             <button>Close</button>

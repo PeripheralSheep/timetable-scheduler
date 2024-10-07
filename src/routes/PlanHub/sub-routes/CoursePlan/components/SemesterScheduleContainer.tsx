@@ -2,7 +2,7 @@ import { useStyles } from "../styles/coursePlan.classNames";
 import NewSemesterButton from "./NewSemesterButton";
 import SemesterScheduleCard from "./SemesterScheduleCard";
 import type { Course, CourseSemester } from "../../../../../types/course.types.ts"
-import { useCompletedCourses, useCourses } from "../../../PlanHub.tsx";
+import { useCompletedCourses, useAvailableCourses } from "../../../PlanHub.tsx";
 import React from "react";
 
 export default function SemesterScheduleContainer({semestersInfo, setSemestersInfo} : {
@@ -15,7 +15,7 @@ export default function SemesterScheduleContainer({semestersInfo, setSemestersIn
         semesterNumber: 1
     } 
     const {completedCourses} = useCompletedCourses();
-    const { courses } = useCourses();
+    const { courses } = useAvailableCourses();
 
     const courseList: Course[] = Object.values(courses);
     const selectableCourses = courseList.filter((course) => {

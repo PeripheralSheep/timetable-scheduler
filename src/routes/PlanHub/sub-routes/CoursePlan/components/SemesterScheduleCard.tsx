@@ -14,7 +14,11 @@ export default function SemesterScheduleCard({ semester, availableCourses, setSe
     const selectedCourses = semester.courseList;
     const minCreditsACourse = 3;
     const numCredits = selectedCourses?.reduce((sum, curCourse) => curCourse !== null ? sum + curCourse.credits : sum, 0);
-    const courseOptions: Course[] = availableCourses.filter((course) => !selectedCourses.some((selectedCourse) => selectedCourse?.code === course.code) && (semester.maxCredits - numCredits >= course.credits))
+    const courseOptions: Course[] = availableCourses.filter((course) => (
+        !selectedCourses.some((selectedCourse) => selectedCourse?.code === course.code) 
+        && (semester.maxCredits - numCredits >= course.credits)
+        && (!course.semester  || course.semester === semester.semesterNumber)
+    ))
 
     function addCourseSlot() {
         setSemestersInfo( (semesters) => {

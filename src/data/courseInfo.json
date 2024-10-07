@@ -57,7 +57,8 @@
                 }
             ]
         },
-        "antirequisites": ["COMP2125"]
+        "antirequisites": ["COMP2125"],
+        "semester": 2
     }
 
 }

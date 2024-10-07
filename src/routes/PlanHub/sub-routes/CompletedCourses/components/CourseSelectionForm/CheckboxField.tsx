@@ -2,14 +2,14 @@ import { useStyles } from "../../styles/CompletedCourses.classNames";
 import CheckboxOption from "./CheckboxOption";
 import type { Course } from "../../../../../../types/course.types";
 import type { Filter } from "../../types/FilterTypes.types";
-import { useCompletedCourses, useCourses } from "../../../../PlanHub";
+import { useCompletedCourses, useAvailableCourses } from "../../../../PlanHub";
 
 export default function CheckboxField({filters}:{
     filters: Filter, 
 }) {
     const classes = useStyles();
     const {completedCourses, setCompletedCourses} = useCompletedCourses();
-    const { courses } = useCourses();
+    const { courses } = useAvailableCourses();
     const courseList: Course[] = Object.values(courses);
 
     const filterByCode = (code: string) => {

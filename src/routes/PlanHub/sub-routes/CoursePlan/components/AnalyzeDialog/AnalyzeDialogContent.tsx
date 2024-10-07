@@ -1,23 +1,29 @@
 import { DialogContent } from "@fluentui/react-components"
 import { useStyles } from "../../styles/analyzeDialog.classNames";
-import type { SemesterErrors } from "./AnalyzeDialog";
-export default function AnalyzeDialogContent({errors} : {errors?: SemesterErrors[]}) {
+import type { SemesterErrors, GeneralErrors } from "./AnalyzeDialog";
+export default function AnalyzeDialogContent({semesterErrors, generalErrors} : {
+    generalErrors?: GeneralErrors[],
+    semesterErrors?: SemesterErrors[]
+}) {
     const classes = useStyles()
 
-    if(errors && errors.length > 0)
+    if((semesterErrors && semesterErrors.length > 0 )|| (generalErrors && generalErrors.length > 0))
         return (
             <DialogContent>
                 <div className={classes.passFailCards}>
-                    <h2>Passed</h2>
-                    <ul className={classes.passList}>
-                        <li>Credit Requirement Passed</li>
-                        <li>All Mandatory Courses Taken</li>
-                        <li>Elective Requirement Satisfied</li>
-                    </ul>
-                </div>
-                <div className={classes.passFailCards}>
                     <h2>Failed</h2>
-                    {errors?.map((semesterError) => {
+                    <ul className={classes.failList}>
+                        {generalErrors?.map((generalError) => {
+                            
+                            return (
+                                <>
+                                    {generalError};
+                                </>
+                            )
+                        })}
+                    </ul>
+                    
+                    {semesterErrors?.map((semesterError) => {
                         return (
                             <>
                                 <h3>Semester {semesterError.semesterKey}</h3>
@@ -41,6 +47,9 @@ export default function AnalyzeDialogContent({errors} : {errors?: SemesterErrors
         )
     else 
         return (
-            <h2>All Good To Go!</h2>
+            <DialogContent>
+                <img src="/src/assets/smiling-face.png" />
+                <h2>All Good To Go!</h2>
+            </DialogContent>
         )
 }
